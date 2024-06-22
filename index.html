@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+            border-style: double;
+        }
+        .picks {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pick {
+            text-align: center;
+            margin: 0 20px;
+        }
+        .pick img {
+            width: 100px;
+            height: 150px;
+            cursor: pointer;
+        }
+        .score {
+            text-align: center;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: green;
+            color: white;
+            border-radius: 5px;
+            margin: 10px;
+            border-style: outset;
+        }
+        .reset-button {
+            background-color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        
+        <div class="picks">
+            <div class="pick" id="playerPick">
+                <h3>Your Pick</h3>
+                <img id="playerChoiceImg" src="" alt="Player's Pick">
+            </div>
+            <div class="pick" id="computerPick">
+                <h3>Enemy's Pick</h3>
+                <img id="computerChoiceImg" src="" alt="Computer's Pick">
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="playGame()">PLAY</button>
+            <button class="reset-button" onclick="resetScores()">RESET</button>
+        </div>
+
+        <div class="score">
+            <h2>Score</h2>
+            <p>Wins: <span id="wins">0</span></p>
+            <p>Losses: <span id="losses">0</span></p>
+            <p>Draws: <span id="ties">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const choices = ["bato.png", "papel.png", "gunting.png"];
+        let wins = 0;
+        let losses = 0;
+        let ties = 0;
+
+        function playGame() {
+            const playerPickImg = document.getElementById('playerChoiceImg');
+            const computerPickImg = document.getElementById('computerChoiceImg');
+            const playerIndex = Math.floor(Math.random() * choices.length);
+            const computerIndex = Math.floor(Math.random() * choices.length);
+            const playerChoice = choices[playerIndex];
+            const computerChoice = choices[computerIndex];
+
+            playerPickImg.src = playerChoice;
+            computerPickImg.src = computerChoice;
+
+            if (playerChoice === computerChoice) {
+                ties++;
+            } else if (
+                (playerChoice === "bato.png" && computerChoice === "gunting.png") ||
+                (playerChoice === "papel.png" && computerChoice === "bato.png") ||
+                (playerChoice === "gunting.png" && computerChoice === "papel.png")
+            ) {
+                wins++;
+            } else {
+                losses++;
+            }
+
+            document.getElementById('wins').textContent = wins;
+            document.getElementById('losses').textContent = losses;
+            document.getElementById('ties').textContent = ties;
+        }
+
+        function resetScores() {
+            wins = 0;
+            losses = 0;
+            ties = 0;
+            document.getElementById('wins').textContent = wins;
+            document.getElementById('losses').textContent = losses;
+            document.getElementById('ties').textContent = ties;
+
+            document.getElementById('playerChoiceImg').src = "";
+            document.getElementById('computerChoiceImg').src = "";
+        }
+    </script>
+</body>
+</html>
